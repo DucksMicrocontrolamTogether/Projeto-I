@@ -1,0 +1,699 @@
+A51 MACRO ASSEMBLER  MAIN                                                                 04/09/2017 13:30:20 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\main.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE main.a51 SET(SMALL) DEBUG PRINT(.\Listings\main.lst) OBJECT(.\Objects\m
+                      ain.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000 1181              1                                             CALL Inicialize
+
+0002                   2     MainCode:
+
+0002 11FC              3                                             CALL ReadKeyboard
+
+0004 11DC              4                                             CALL ReadCheck
+
+0006 1102              5                                             CALL MainCode                   
+
+                       6                             
+
+0008 7590FF            7     PiscaLedInfinito:       MOV P1, #11111111B
+
+000B 1114              8                                             CALL Delay
+
+000D 759000            9                                             MOV P1, #00
+
+0010 1114             10                                             CALL Delay
+
+0012 80F4             11                                             JMP PiscaLedInfinito
+
+                      12     
+
+                      13     
+
+0014                  14     Delay:  ;Um segundo de delay                    
+
+0014 7FFF             15                                             MOV R7,#255
+
+0016 7EFF             16                             LOOP:   MOV R6,#255
+
+0018 7D11             17                             LOOP2:  MOV R5,#17
+
+001A DDFE             18                                             DJNZ R5,$
+
+001C DEFA             19                                             DJNZ R6,LOOP2
+
+001E DFF6             20                                             DJNZ R7,LOOP
+
+0020 22               21                                             RET
+
+                      22                                             
+
+0021                  23     DelayBeep1:     ;               
+
+0021 7FFF             24                                             MOV R7,#255
+
+0023 7E01             25                             LOOPb1: MOV R6,#1
+
+0025 7D01             26                             LOOP2b1:        MOV R5,#1
+
+0027 DDFE             27                                             DJNZ R5,$
+
+0029 DEFA             28                                             DJNZ R6,LOOP2b1
+
+002B DFF6             29                                             DJNZ R7,LOOPb1
+
+002D 22               30                                             RET
+
+002E                  31     DelayBeep2:     ;               
+
+002E 7F19             32                                             MOV R7,#25
+
+0030 7E01             33                             LOOPb2: MOV R6,#1
+
+0032 7D01             34                             LOOP2b2:MOV R5,#1
+
+0034 DDFE             35                                             DJNZ R5,$
+
+0036 DEFA             36                                             DJNZ R6,LOOP2b2
+
+0038 DFF6             37                                             DJNZ R7,LOOPb2
+
+003A 22               38                                             RET
+
+                      39                                             
+
+                      40                                             
+
+                      41                                             
+
+003B                  42     DelayBeep3:     ;               
+
+003B 7F64             43                                             MOV R7,#100
+
+003D 7E01             44                             LOOPb3: MOV R6,#1
+
+003F 7D01             45                             LOOP2b3:MOV R5,#1
+
+0041 DDFE             46                                             DJNZ R5,$
+
+0043 DEFA             47                                             DJNZ R6,LOOP2b3
+
+0045 DFF6             48                                             DJNZ R7,LOOPb3
+
+0047 22               49                                             RET                                     
+
+                      50                                             
+
+0048                  51     beep1:          
+
+                      52                             ;Um beep de aproximadamente 3 segundos para quando o usuario errar 
+                             a senha
+
+0048 7C64             53                             MOV R4,#100
+
+004A                  54                             internoBeep1:
+
+004A 7B02             55                             MOV R3,#2
+
+004C                  56                             internoBeep12:
+
+A51 MACRO ASSEMBLER  MAIN                                                                 04/09/2017 13:30:20 PAGE     2
+
+004C 7590FF           57                             MOV P1,#11111111b
+
+004F 1121             58                             CALL DelayBeep1
+
+0051 759000           59                             MOV P1,#00000000b
+
+0054 1121             60                             CALL DelayBeep1
+
+0056 DBF4             61                             DJNZ R3,internoBeep12
+
+0058 DCF0             62                             DJNZ R4,internoBeep1
+
+005A 22               63                             RET
+
+                      64                             
+
+005B                  65     beep2:          
+
+                      66                             ;Um beep de aproximadamente 3 segundos para quando o usuario errar 
+                             a senha
+
+005B 7C64             67                             MOV R4,#100
+
+005D                  68                             internoBeep2:
+
+005D 7B14             69                             MOV R3,#20
+
+005F                  70                             internoBeep22:
+
+005F 7590FF           71                             MOV P1,#11111111b
+
+0062 112E             72                             CALL DelayBeep2
+
+0064 759000           73                             MOV P1,#00000000b
+
+0067 112E             74                             CALL DelayBeep2
+
+0069 DBF4             75                             DJNZ R3,internoBeep22
+
+006B DCF0             76                             DJNZ R4,internoBeep2
+
+006D 22               77                             RET                     
+
+                      78                             
+
+                      79                             
+
+006E                  80     beep3:          
+
+                      81                             ;Um curto beep para quando o usuario apertar um botao
+
+006E 7C64             82                             MOV R4,#100
+
+0070                  83                             internoBeep3:
+
+0070 7B05             84                             MOV R3,#5
+
+0072                  85                             internoBeep32:
+
+                      86                             
+
+0072 7590FF           87                             MOV P1,#11111111b
+
+0075 113B             88                             CALL DelayBeep3
+
+0077 759000           89                             MOV P1,#00000000b
+
+007A 113B             90                             CALL DelayBeep3
+
+                      91                             
+
+007C DBF4             92                             DJNZ R3,internoBeep32
+
+007E DCF0             93                             DJNZ R4,internoBeep3
+
+0080 22               94                             RET                     
+
+                      95                                                     
+
+0081                  96     Inicialize:     
+
+                      97                                             ;Armazenando senhas na memoria
+
+                      98                                             ;Senha 1: Da memoria 189 a 192 (1111)
+
+                      99                                             ;Senha 2: Da memoria 193 a 196 (1234)
+
+0081 E4              100                                             CLR A
+
+0082 1185            101                                             CALL ResetPass
+
+0084 22              102                                             RET
+
+                     103     
+
+0085                 104     ResetPass:                      
+
+                     105                                             ;Zerando os registradores de senha
+
+0085 79B9            106                                             MOV R1,#185
+
+0087 7400            107                                             MOV A,#0
+
+0089 F7              108                                             MOV @R1,A
+
+                     109                                             
+
+008A 79BA            110                                             MOV R1,#186
+
+008C 7400            111                                             MOV A,#0
+
+008E F7              112                                             MOV @R1,A
+
+                     113                                             
+
+008F 79BB            114                                             MOV R1,#187
+
+0091 7400            115                                             MOV A,#0
+
+0093 F7              116                                             MOV @R1,A
+
+                     117                                             
+
+0094 79B8            118                                             MOV R1,#184
+
+0096 7400            119                                             MOV A,#0
+
+0098 F7              120                                             MOV @R1,A
+
+                     121     
+
+A51 MACRO ASSEMBLER  MAIN                                                                 04/09/2017 13:30:20 PAGE     3
+
+0099 22              122                                             RET
+
+                     123     
+
+009A                 124     PassCheck:
+
+                     125     ;Funcao que verifica se foi salvo 4 valores na memoria
+
+                     126     ;E checa se o valor esta valido
+
+009A E9              127                                             MOV A,R1 ;
+
+009B 94BB            128                                             SUBB A,#187
+
+009D 403C            129                                             JC EndCheckPass
+
+                     130                                             
+
+                     131                                             ;Conferindo a senha 1 (1111)
+
+009F 78B8            132                                             MOV R0,#184
+
+00A1 E6              133                                             MOV A,@R0
+
+00A2 F8              134                                             MOV R0,A
+
+00A3 B80117          135                                             CJNE R0,#1,SecondPass 
+
+                     136                                             
+
+00A6 78B9            137                                             MOV R0,#185
+
+00A8 E6              138                                             MOV A,@R0
+
+00A9 F8              139                                             MOV R0,A
+
+00AA B80110          140                                             CJNE R0,#1,SecondPass 
+
+                     141                                             
+
+00AD 78BA            142                                             MOV R0,#186
+
+00AF E6              143                                             MOV A,@R0
+
+00B0 F8              144                                             MOV R0,A
+
+00B1 B80109          145                                             CJNE R0,#1,SecondPass 
+
+                     146                                             
+
+00B4 78BB            147                                             MOV R0,#187
+
+00B6 E6              148                                             MOV A,@R0
+
+00B7 F8              149                                             MOV R0,A
+
+00B8 B80102          150                                             CJNE R0,#1,SecondPass
+
+                     151                                             
+
+00BB 801C            152                                             JMP acertouMizeravi
+
+                     153                                             
+
+00BD                 154     SecondPass:     
+
+                     155                                             ;Conferindo a senha 2 (1234)
+
+00BD 78B8            156                                             MOV R0,#184
+
+00BF E6              157                                             MOV A,@R0
+
+00C0 F8              158                                             MOV R0,A
+
+00C1 B80117          159                                             CJNE R0,#1,WrongPass 
+
+                     160                                             
+
+00C4 78B9            161                                             MOV R0,#185
+
+00C6 E6              162                                             MOV A,@R0
+
+00C7 F8              163                                             MOV R0,A
+
+00C8 B80210          164                                             CJNE R0,#2,WrongPass 
+
+                     165                                             
+
+00CB 78BA            166                                             MOV R0,#186
+
+00CD E6              167                                             MOV A,@R0
+
+00CE F8              168                                             MOV R0,A
+
+00CF B80309          169                                             CJNE R0,#3,WrongPass 
+
+                     170                                             
+
+00D2 78BB            171                                             MOV R0,#187
+
+00D4 E6              172                                             MOV A,@R0
+
+00D5 F8              173                                             MOV R0,A
+
+00D6 B80402          174                                             CJNE R0,#4,WrongPass
+
+                     175     
+
+00D9                 176     acertouMizeravi:
+
+                     177                                             ;Buzzer e motor e barulho certo
+
+00D9 8000            178                                             JMP EndCheckPass
+
+00DB                 179     WrongPass:                      
+
+                     180                                             ;Buzzer errado
+
+                     181                                             ;Delay
+
+00DB                 182     EndCheckPass:           
+
+00DB 22              183                                             RET
+
+                     184     
+
+00DC                 185     ReadCheck:                      
+
+                     186     
+
+                     187     ;Funcao que verifica se o valor lido no telcado e valido
+
+A51 MACRO ASSEMBLER  MAIN                                                                 04/09/2017 13:30:20 PAGE     4
+
+                     188     ;e armazena esse valor na memoria interna no endereco 184 a 188
+
+00DC F5A0            189                                             MOV P2,A
+
+00DE 9409            190                                             SUBB A,#9
+
+00E0 5009            191                                             JNC CheckEnter
+
+00E2 2409            192                                             ADD A,#9
+
+00E4 F7              193                                             MOV @R1,A
+
+00E5 E9              194                                             MOV A,R1
+
+00E6 2401            195                                             ADD A,#1
+
+00E8 F9              196                                             MOV R1,A
+
+00E9 8010            197                                             JMP Done
+
+00EB                 198     CheckEnter:                     
+
+00EB 2409            199                                             ADD A,#9
+
+00ED B40A06          200                                             CJNE A,#10,CheckEsc 
+
+                     201                                             
+
+                     202                                             ;Apertou enter
+
+00F0 119A            203                                             CALL PassCheck
+
+00F2 1185            204                                             CALL ResetPass
+
+                     205                                             
+
+00F4 8005            206                                             JMP Done
+
+                     207     
+
+00F6 B40B02          208     CheckEsc:                       CJNE A,#11,Done 
+
+                     209                                             ;Apertou ESC
+
+00F9 1185            210                                             CALL ResetPass
+
+00FB 22              211     Done:                           RET
+
+                     212             
+
+00FC                 213     ReadKeyboard:
+
+00FC 75B0F7          214                             COL0:   MOV P3, #11110111B ;coluna 0
+
+00FF E5B0            215                                             MOV A, P3
+
+0101 B4F719          216                                             CJNE A, #11110111B, CL00
+
+                     217                                             
+
+0104 75B0FB          218                             COL1:   MOV P3, #11111011B ;coluna 1
+
+0107 E5B0            219                                             MOV A, P3
+
+0109 B4FB29          220                                             CJNE A, #11111011B, CL10
+
+                     221     
+
+010C 75B0FD          222                             COL2:   MOV P3, #11111101B ;coluna 2
+
+010F E5B0            223                                             MOV A, P3
+
+0111 B4FD39          224                                             CJNE A, #11111101B, CL20
+
+                     225                                             
+
+0114 75B0FE          226                             COL3:   MOV P3, #11111110B ;coluna 3
+
+0117 E5B0            227                                             MOV A, P3
+
+0119 B4FE49          228                                             CJNE A, #11111110B, CL30
+
+                     229                                             
+
+                     230                                             
+
+011C 22              231                                             RET
+
+                     232                                             
+
+                     233                                             
+
+011D B4E703          234                             CL00:   CJNE A, #11100111B, CL01 ;coluna 0, linha 0
+
+0120 7401            235                                             MOV A, #1
+
+0122 22              236                                             RET
+
+                     237                                             
+
+0123 B4D703          238                             CL01:   CJNE A, #11010111B, CL02 ;coluna 0, linha 1
+
+0126 7405            239                                             MOV A, #5
+
+0128 22              240                                             RET
+
+                     241                                             
+
+0129 B4B703          242                             CL02:   CJNE A, #10110111B, CL03 ;coluna 0, linha 2
+
+012C 7409            243                                             MOV A, #9
+
+012E 22              244                                             RET
+
+                     245                                             
+
+012F B47702          246                             CL03:   CJNE A, #01110111B, VT03 ;coluna 0, linha 3
+
+0132 740C            247                                             MOV A, #12
+
+0134 22              248                             VT03:   RET
+
+                     249                             
+
+0135 B4EB03          250                             CL10:   CJNE A, #11101011B, CL11 ;coluna 1, linha 0
+
+0138 7402            251                                             MOV A, #2
+
+013A 22              252                                             RET
+
+                     253                                             
+
+A51 MACRO ASSEMBLER  MAIN                                                                 04/09/2017 13:30:20 PAGE     5
+
+013B B4DB03          254                             CL11:   CJNE A, #11011011B, CL12 ;coluna 1, linha 1
+
+013E 7406            255                                             MOV A, #6
+
+0140 22              256                                             RET
+
+                     257                                             
+
+0141 B4BB03          258                             CL12:   CJNE A, #10111011B, CL13 ;coluna 1, linha 2
+
+0144 7400            259                                             MOV A, #0
+
+0146 22              260                                             RET
+
+                     261                                             
+
+0147 B47B02          262                             CL13:   CJNE A, #01111011B, VT13 ;coluna 1, linha 3
+
+014A 740D            263                                             MOV A, #13
+
+014C 22              264                             VT13:   RET
+
+                     265     
+
+014D B4ED03          266                             CL20:   CJNE A, #11101101B, CL21 ;coluna 2, linha 0
+
+0150 7403            267                                             MOV A, #3
+
+0152 22              268                                             RET
+
+                     269     
+
+0153 B4DD03          270                             CL21:   CJNE A, #11011101B, CL22 ;coluna 2, linha 1
+
+0156 7407            271                                             MOV A, #7
+
+0158 22              272                                             RET
+
+                     273     
+
+0159 B4BD03          274                             CL22:   CJNE A, #10111101B, CL23 ;coluna 2, linha 2
+
+015C 740A            275                                             MOV A, #10
+
+015E 22              276                                             RET
+
+                     277     
+
+015F B47D02          278                             CL23:   CJNE A, #01111101B, VT23 ;coluna 2, linha 3
+
+0162 740E            279                                             MOV A, #14
+
+0164 22              280                             VT23:   RET
+
+                     281     
+
+                     282     
+
+0165 B4EE03          283                             CL30:   CJNE A, #11101110B, CL31 ;coluna 3, linha 0
+
+0168 7404            284                                             MOV A, #4
+
+016A 22              285                                             RET
+
+                     286                                             
+
+016B B4DE03          287                             CL31:   CJNE A, #11011110B, CL32 ;coluna 3, linha 1
+
+016E 7408            288                                             MOV A, #8
+
+0170 22              289                                             RET
+
+                     290                                             
+
+0171 B4BE03          291                             CL32:   CJNE A, #10111110B, CL33 ;coluna 3, linha 2
+
+0174 740B            292                                             MOV A, #11
+
+0176 22              293                                             RET
+
+                     294     
+
+0177 B47E02          295                             CL33:   CJNE A, #01111110B, VT33 ;coluna 3, linha 3
+
+017A 740F            296                                             MOV A, #15
+
+017C 22              297                             VT33:   RET
+
+                     298     
+
+017D                 299     FIM:    
+
+                     300                                             END
+
+A51 MACRO ASSEMBLER  MAIN                                                                 04/09/2017 13:30:20 PAGE     6
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACERTOUMIZERAVI. .  C ADDR   00D9H   A   
+BEEP1. . . . . . .  C ADDR   0048H   A   
+BEEP2. . . . . . .  C ADDR   005BH   A   
+BEEP3. . . . . . .  C ADDR   006EH   A   
+CHECKENTER . . . .  C ADDR   00EBH   A   
+CHECKESC . . . . .  C ADDR   00F6H   A   
+CL00 . . . . . . .  C ADDR   011DH   A   
+CL01 . . . . . . .  C ADDR   0123H   A   
+CL02 . . . . . . .  C ADDR   0129H   A   
+CL03 . . . . . . .  C ADDR   012FH   A   
+CL10 . . . . . . .  C ADDR   0135H   A   
+CL11 . . . . . . .  C ADDR   013BH   A   
+CL12 . . . . . . .  C ADDR   0141H   A   
+CL13 . . . . . . .  C ADDR   0147H   A   
+CL20 . . . . . . .  C ADDR   014DH   A   
+CL21 . . . . . . .  C ADDR   0153H   A   
+CL22 . . . . . . .  C ADDR   0159H   A   
+CL23 . . . . . . .  C ADDR   015FH   A   
+CL30 . . . . . . .  C ADDR   0165H   A   
+CL31 . . . . . . .  C ADDR   016BH   A   
+CL32 . . . . . . .  C ADDR   0171H   A   
+CL33 . . . . . . .  C ADDR   0177H   A   
+COL0 . . . . . . .  C ADDR   00FCH   A   
+COL1 . . . . . . .  C ADDR   0104H   A   
+COL2 . . . . . . .  C ADDR   010CH   A   
+COL3 . . . . . . .  C ADDR   0114H   A   
+DELAY. . . . . . .  C ADDR   0014H   A   
+DELAYBEEP1 . . . .  C ADDR   0021H   A   
+DELAYBEEP2 . . . .  C ADDR   002EH   A   
+DELAYBEEP3 . . . .  C ADDR   003BH   A   
+DONE . . . . . . .  C ADDR   00FBH   A   
+ENDCHECKPASS . . .  C ADDR   00DBH   A   
+FIM. . . . . . . .  C ADDR   017DH   A   
+INICIALIZE . . . .  C ADDR   0081H   A   
+INTERNOBEEP1 . . .  C ADDR   004AH   A   
+INTERNOBEEP12. . .  C ADDR   004CH   A   
+INTERNOBEEP2 . . .  C ADDR   005DH   A   
+INTERNOBEEP22. . .  C ADDR   005FH   A   
+INTERNOBEEP3 . . .  C ADDR   0070H   A   
+INTERNOBEEP32. . .  C ADDR   0072H   A   
+LOOP . . . . . . .  C ADDR   0016H   A   
+LOOP2. . . . . . .  C ADDR   0018H   A   
+LOOP2B1. . . . . .  C ADDR   0025H   A   
+LOOP2B2. . . . . .  C ADDR   0032H   A   
+LOOP2B3. . . . . .  C ADDR   003FH   A   
+LOOPB1 . . . . . .  C ADDR   0023H   A   
+LOOPB2 . . . . . .  C ADDR   0030H   A   
+LOOPB3 . . . . . .  C ADDR   003DH   A   
+MAINCODE . . . . .  C ADDR   0002H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+PASSCHECK. . . . .  C ADDR   009AH   A   
+PISCALEDINFINITO .  C ADDR   0008H   A   
+READCHECK. . . . .  C ADDR   00DCH   A   
+READKEYBOARD . . .  C ADDR   00FCH   A   
+RESETPASS. . . . .  C ADDR   0085H   A   
+SECONDPASS . . . .  C ADDR   00BDH   A   
+VT03 . . . . . . .  C ADDR   0134H   A   
+VT13 . . . . . . .  C ADDR   014CH   A   
+A51 MACRO ASSEMBLER  MAIN                                                                 04/09/2017 13:30:20 PAGE     7
+
+VT23 . . . . . . .  C ADDR   0164H   A   
+VT33 . . . . . . .  C ADDR   017CH   A   
+WRONGPASS. . . . .  C ADDR   00DBH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
